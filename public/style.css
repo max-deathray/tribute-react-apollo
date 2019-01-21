@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+.vibe-list {
+  display: flex;
+}
+
+.single-vibe {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 20%;
+}
+
+.single-vibe > div > img {
+  /* border: solid 20px black; */
+  border-radius: 30px;
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
+}
+
+.vibe-caption {
+  text-align: center;
+}
