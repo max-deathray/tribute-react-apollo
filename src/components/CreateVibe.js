@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 
-import NProgress from 'nprogress';
+// import NProgress from 'nprogress';
 
 const styles = theme => ({
   main: {

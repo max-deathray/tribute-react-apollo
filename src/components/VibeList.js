@@ -9,6 +9,16 @@ const FEED_QUERY = gql`
       id
       img
       description
+      postedBy {
+        id
+        name
+      }
+      hearts {
+        id
+        user {
+          id
+        }
+      }
     }
   }
 `;
@@ -24,9 +34,14 @@ class VibeList extends Component {
           const vibesToRender = data.feed;
 
           return (
-            <div class="vibe-list">
-              {vibesToRender.map(vibe => (
-                <Vibe key={vibe.id} vibe={vibe} />
+            <div className="vibe-list">
+              {vibesToRender.map((vibe, index) => (
+                <Vibe
+                  key={vibe.id}
+                  vibe={vibe}
+                  index={index}
+                  updateStoreAfterHeart={this._updateCacheAfterHeart}
+                />
               ))}
             </div>
           );
@@ -34,6 +49,15 @@ class VibeList extends Component {
       </Query>
     );
   }
+
+  _updateCacheAfterHeart = (store, createHeart, vibeId) => {
+    const data = store.readQuery({ query: FEED_QUERY });
+
+    const heartedLink = data.feed.find(vibe => vibe.id === vibeId);
+    heartedLink.hearts = createHeart.vibe.hearts;
+
+    store.writeQuery({ query: FEED_QUERY, data });
+  };
 }
 
 export default VibeList;
