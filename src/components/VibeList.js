@@ -9,6 +9,16 @@ const FEED_QUERY = gql`
       id
       img
       description
+      postedBy {
+        id
+        name
+      }
+      hearts {
+        id
+        user {
+          id
+        }
+      }
     }
   }
 `;
@@ -25,8 +35,8 @@ class VibeList extends Component {
 
           return (
             <div className="vibe-list">
-              {vibesToRender.map(vibe => (
-                <Vibe key={vibe.id} vibe={vibe} />
+              {vibesToRender.map((vibe, index) => (
+                <Vibe key={vibe.id} vibe={vibe} index={index} />
               ))}
             </div>
           );
