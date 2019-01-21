@@ -134,17 +134,6 @@ class Login extends Component {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            {/* <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => this._confirm()}
-            >
-              {login ? 'Login' : 'Sign Up'}
-            </Button> */}
-
             <Mutation
               mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
               variables={{ email, password, name }}
@@ -152,12 +141,11 @@ class Login extends Component {
             >
               {mutation => (
                 <Button
-                  type="submit"
+                  onClick={mutation}
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  onClick={mutation}
                 >
                   {login ? 'login' : 'create account'}
                 </Button>
@@ -182,11 +170,15 @@ class Login extends Component {
     );
   }
 
-  _confirm = async () => {
-    // coming soon!
+  _confirm = async data => {
+    const { token } = this.state.login ? data.login : data.signup;
+    console.log('in the confirm func - the token returned is', token);
+    this._saveUserData(token);
+    this.props.history.push('/');
   };
 
   _saveUserData = token => {
+    console.log('in the save user data area....here is the token', token);
     localStorage.setItem(AUTH_TOKEN, token);
   };
 }

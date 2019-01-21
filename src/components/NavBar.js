@@ -8,12 +8,19 @@ import { AUTH_TOKEN } from '../constants';
 class NavBar extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN);
+    console.log('authToken', authToken);
     return (
       <AppBar position="sticky">
         <Toolbar>
           <div>
             <Link to="/"> Tribute Vibes</Link> |{' '}
-            <Link to="/create">submit a vibe</Link> |{' '}
+            {/* submit button is only visible when you are logged in */}
+            {authToken && (
+              <div>
+                <Link to="/create">submit a vibe</Link>|{' '}
+              </div>
+            )}
+            {/* login button changes to logout when you are logged in */}
             {authToken ? (
               <div
                 onClick={() => {
