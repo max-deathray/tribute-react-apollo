@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import Vibe from './Vibe';
 import gql from 'graphql-tag';
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   {
     feed {
       id
@@ -37,7 +37,7 @@ class VibeList extends Component {
             <div className="vibe-list">
               {vibesToRender.map((vibe, index) => (
                 <Vibe
-                  key={vibe.id}
+                  // key={vibe.id}
                   vibe={vibe}
                   index={index}
                   updateStoreAfterHeart={this._updateCacheAfterHeart}

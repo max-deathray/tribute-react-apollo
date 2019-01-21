@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
+import { FEED_QUERY } from './VibeList';
 
 // import NProgress from 'nprogress';
 
@@ -101,6 +102,14 @@ class CreateVibe extends Component {
               mutation={POST_MUTATION}
               variables={{ description, img }}
               onCompleted={() => this.props.history.push('/')}
+              update={(store, { data: { vibe } }) => {
+                const data = store.readQuery({ query: FEED_QUERY });
+                data.feed.unshift(vibe);
+                store.writeQuery({
+                  query: FEED_QUERY,
+                  data,
+                });
+              }}
             >
               {postMutation => (
                 <Button
