@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import NProgress from 'nprogress';
 
 const POST_MUTATION = gql`
   mutation PostMutation($description: String!, $img: String!) {
@@ -36,7 +37,11 @@ class CreateVibe extends Component {
             placeholder="Image"
           />
         </div>
-        <Mutation mutation={POST_MUTATION} variables={{ description, img }}>
+        <Mutation
+          mutation={POST_MUTATION}
+          variables={{ description, img }}
+          onCompleted={() => this.props.history.push('/')}
+        >
           {postMutation => <button onClick={postMutation}>Submit</button>}
         </Mutation>
       </div>
