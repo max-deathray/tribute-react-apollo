@@ -56,10 +56,13 @@ const POST_MUTATION = gql`
 `;
 
 class CreateVibe extends Component {
-  state = {
-    img: '',
-    description: '',
-  };
+  constructor() {
+    super();
+    this.state = {
+      img: '',
+      description: '',
+    };
+  }
 
   render() {
     const { classes } = this.props;
@@ -105,6 +108,9 @@ class CreateVibe extends Component {
                   fullWidth
                   variant="contained"
                   color="secondary"
+                  disabled={
+                    img.length > 0 && description.length > 0 ? false : true
+                  }
                 >
                   Submit
                 </Button>
