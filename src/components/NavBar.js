@@ -41,14 +41,16 @@ class NavBar extends Component {
             <div>
               {' '}
               {authToken ? (
-                <div
-                  onClick={() => {
-                    localStorage.removeItem(AUTH_TOKEN);
-                    this.props.history.push('/');
-                  }}
-                >
-                  <Button>logout</Button>
-                </div>
+                <Button>
+                  <div
+                    onClick={() => {
+                      localStorage.removeItem(AUTH_TOKEN);
+                      this.props.history.push('/');
+                    }}
+                  >
+                    logout
+                  </div>
+                </Button>
               ) : (
                 <Link to="/login">
                   <Button>login</Button>
