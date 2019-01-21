@@ -3,6 +3,10 @@
 }
 
 .vibe-list {
+  display: grid;
+}
+
+.header {
   display: flex;
 }
 
