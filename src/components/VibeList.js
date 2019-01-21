@@ -24,7 +24,7 @@ class VibeList extends Component {
           const vibesToRender = data.feed;
 
           return (
-            <div>
+            <div class="vibe-list">
               {vibesToRender.map(vibe => (
                 <Vibe key={vibe.id} vibe={vibe} />
               ))}

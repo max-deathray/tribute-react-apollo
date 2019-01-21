@@ -24,7 +24,7 @@ class NavBar extends Component {
             <div className="header">
               <div>
                 <Link to="/">
-                  <Button> Tribute Vibes </Button>
+                  <Button> Vibe Tribe </Button>
                 </Link>
                 {'   '}
               </div>
