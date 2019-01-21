@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { AUTH_TOKEN } from '../constants';
@@ -21,14 +22,24 @@ class NavBar extends Component {
           >
             {' '}
             <div className="header">
-              <Link to="/"> Tribute Vibes</Link> |{' '}
+              <div>
+                <Link to="/">
+                  <Button> Tribute Vibes </Button>
+                </Link>
+                {'   '}
+              </div>
               {/* submit button is only visible when you are logged in */}
               {authToken && (
                 <div>
-                  <Link to="/create">submit a vibe</Link>|{' '}
+                  <Link to="/create">
+                    <Button>submit a vibe</Button>
+                  </Link>{' '}
                 </div>
               )}
               {/* login button changes to logout when you are logged in */}
+            </div>
+            <div>
+              {' '}
               {authToken ? (
                 <div
                   onClick={() => {
@@ -36,13 +47,14 @@ class NavBar extends Component {
                     this.props.history.push('/');
                   }}
                 >
-                  logout
+                  <Button>logout</Button>
                 </div>
               ) : (
-                <Link to="/login">login</Link>
+                <Link to="/login">
+                  <Button>login</Button>
+                </Link>
               )}
             </div>
-            <div>Other Div</div>
           </Grid>
         </Toolbar>
       </AppBar>
