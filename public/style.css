@@ -2,23 +2,31 @@
   box-sizing: border-box;
 }
 
-.vibe-list {
-  display: grid;
+a {
+  text-decoration: none;
 }
 
 .header {
   display: flex;
 }
 
+.vibe-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* grid-template-columns: repeat(minmax(200px, 1fr)); */
+  grid-gap: 10px;
+  margin-right: 1vw;
+  margin-bottom: 1vw
+}
+
 .single-vibe {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 20%;
+
 }
 
 .single-vibe > div > img {
-  /* border: solid 20px black; */
   border-radius: 30px;
   padding: 5px;
   margin: 5px;
@@ -27,4 +35,4 @@
 
 .vibe-caption {
   text-align: center;
-}
+} */

@@ -24,7 +24,7 @@ class NavBar extends Component {
             <div className="header">
               <div>
                 <Link to="/">
-                  <Button> Tribute Vibes </Button>
+                  <Button> Vibe Tribe </Button>
                 </Link>
                 {'   '}
               </div>
@@ -41,14 +41,16 @@ class NavBar extends Component {
             <div>
               {' '}
               {authToken ? (
-                <div
-                  onClick={() => {
-                    localStorage.removeItem(AUTH_TOKEN);
-                    this.props.history.push('/');
-                  }}
-                >
-                  <Button>logout</Button>
-                </div>
+                <Button>
+                  <div
+                    onClick={() => {
+                      localStorage.removeItem(AUTH_TOKEN);
+                      this.props.history.push('/');
+                    }}
+                  >
+                    logout
+                  </div>
+                </Button>
               ) : (
                 <Link to="/login">
                   <Button>login</Button>
