@@ -12,6 +12,25 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { AUTH_TOKEN } from '../constants';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+
+const SIGNUP_MUTATION = gql`
+  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
+    signup(email: $email, password: $password, name: $name) {
+      token
+    }
+  }
+`;
+
+const LOGIN_MUTATION = gql`
+  mutation LoginMutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+    }
+  }
+`;
 
 const styles = theme => ({
   main: {
@@ -50,7 +69,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: false,
+      login: true,
       email: '',
       password: '',
       name: '',
@@ -90,7 +109,6 @@ class Login extends Component {
             )}
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-<<<<<<< HEAD
               <Input
                 id="email"
                 name="email"
@@ -100,9 +118,6 @@ class Login extends Component {
                 onChange={e => this.setState({ email: e.target.value })}
                 type="text"
               />
-=======
-              <Input id="email" name="email" autoComplete="email" autoFocus />
->>>>>>> master
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
@@ -111,6 +126,8 @@ class Login extends Component {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={e => this.setState({ password: e.target.value })}
               />
             </FormControl>
             <FormControlLabel
@@ -123,14 +140,35 @@ class Login extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={() => this._confirm()}
             >
-              Sign in
+              {login ? 'Login' : 'Sign Up'}
+            </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={() => this.setState({ login: !login })}
+            >
+              {login
+                ? 'Need to create an account?'
+                : 'Already have an account?'}
             </Button>
           </form>
         </Paper>
       </main>
     );
   }
+
+  _confirm = async () => {
+    // coming soon!
+  };
+
+  _saveUserData = token => {
+    localStorage.setItem(AUTH_TOKEN, token);
+  };
 }
 
 Login.propTypes = {
