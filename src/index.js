@@ -9,6 +9,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const theme = createMuiTheme({
   palette: {
@@ -41,11 +42,13 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <ApolloProvider client={client}>
-      <CssBaseline>
-        <App />
-      </CssBaseline>
-    </ApolloProvider>
+    <Router>
+      <ApolloProvider client={client}>
+        <CssBaseline>
+          <App />
+        </CssBaseline>
+      </ApolloProvider>
+    </Router>
   </MuiThemeProvider>,
   document.getElementById('root')
 );
