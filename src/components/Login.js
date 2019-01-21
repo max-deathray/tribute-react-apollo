@@ -134,7 +134,7 @@ class Login extends Component {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
+            {/* <Button
               type="submit"
               fullWidth
               variant="contained"
@@ -143,7 +143,27 @@ class Login extends Component {
               onClick={() => this._confirm()}
             >
               {login ? 'Login' : 'Sign Up'}
-            </Button>
+            </Button> */}
+
+            <Mutation
+              mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
+              variables={{ email, password, name }}
+              onCompleted={data => this._confirm(data)}
+            >
+              {mutation => (
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={mutation}
+                >
+                  {login ? 'login' : 'create account'}
+                </Button>
+              )}
+            </Mutation>
+
             <Button
               type="submit"
               fullWidth
