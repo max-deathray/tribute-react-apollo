@@ -90,6 +90,7 @@ class Login extends Component {
             )}
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
+<<<<<<< HEAD
               <Input
                 id="email"
                 name="email"
@@ -99,6 +100,9 @@ class Login extends Component {
                 onChange={e => this.setState({ email: e.target.value })}
                 type="text"
               />
+=======
+              <Input id="email" name="email" autoComplete="email" autoFocus />
+>>>>>>> master
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
