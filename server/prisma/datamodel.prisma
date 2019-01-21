@@ -1,0 +1,25 @@
+type Vibe {
+  # the unique directive is a prisma-thing
+  id: ID! @unique
+  # the DateTime thing is also managed by prisma
+  createdAt: DateTime!
+  description: String!
+  img: String!
+  postedBy: User
+  hearts: [Heart!]!
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  vibes: [Vibe!]! # a one-to-many relationship!
+  hearts: [Heart!]!
+}
+
+type Heart {
+  id: ID! @unique
+  vibe: Vibe!
+  user: User!
+}

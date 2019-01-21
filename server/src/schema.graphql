@@ -1,0 +1,53 @@
+type Query {
+  feed(
+    filter: String
+    skip: Int
+    first: Int
+    orderBy: VibeOrderByInput
+  ): [Vibe!]!
+}
+
+enum VibeOrderByInput {
+  description_ASC
+  description_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type Mutation {
+  post(img: String!, description: String!): Vibe!
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  heart(vibeId: ID!): Heart
+}
+
+type Subscription {
+  newVibe: Vibe
+  newHeart: Heart
+}
+
+type Vibe {
+  id: ID!
+  description: String!
+  img: String!
+  postedBy: User
+  hearts: [Heart!]!
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  vibes: [Vibe!]!
+}
+
+type Heart {
+  id: ID!
+  vibe: Vibe!
+  user: User!
+}
