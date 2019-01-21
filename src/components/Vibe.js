@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+// import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Button from '@material-ui/core/Button';
 import { AUTH_TOKEN } from '../constants';
 import { Mutation } from 'react-apollo';
@@ -30,7 +30,7 @@ class Vibe extends Component {
     hearted: false,
   };
   render() {
-    const hearted = this.state.hearted;
+    // const hearted = this.state.hearted;
     const authToken = localStorage.getItem(AUTH_TOKEN);
     return (
       <div className="single-vibe">
@@ -47,13 +47,6 @@ class Vibe extends Component {
               <Mutation
                 mutation={HEART_MUTATION}
                 variables={{ vibeId: this.props.vibe.id }}
-                update={(store, { data: { heart } }) => {
-                  this.props.updateStoreAfterHeart(
-                    store,
-                    heart,
-                    this.props.vibe.id
-                  );
-                }}
               >
                 {heartMutation => (
                   <Button onClick={heartMutation}>
