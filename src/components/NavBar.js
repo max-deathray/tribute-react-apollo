@@ -11,7 +11,8 @@ class NavBar extends Component {
         <Toolbar>
           <div>
             <Link to="/"> Tribute Vibes</Link> |{' '}
-            <Link to="/create">submit a vibe</Link>
+            <Link to="/create">submit a vibe</Link> |{' '}
+            <Link to="/login">login</Link>
           </div>
         </Toolbar>
       </AppBar>
