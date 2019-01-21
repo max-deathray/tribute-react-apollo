@@ -47,6 +47,13 @@ class Vibe extends Component {
               <Mutation
                 mutation={HEART_MUTATION}
                 variables={{ vibeId: this.props.vibe.id }}
+                update={(store, { data: { heart } }) =>
+                  this.props.updateStoreAfterHeart(
+                    store,
+                    heart,
+                    this.props.vibe.id
+                  )
+                }
               >
                 {heartMutation => (
                   <Button onClick={heartMutation}>
