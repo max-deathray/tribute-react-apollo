@@ -6,6 +6,12 @@ a {
   text-decoration: none;
 }
 
+.fetching {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+}
+
 .create-vibe {
   width: 100%;
   height: 100%;
