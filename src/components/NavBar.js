@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import Add from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
@@ -24,7 +26,10 @@ class NavBar extends Component {
             <div className="header">
               <div>
                 <Link to="/">
-                  <Button> Vibe Tribe </Button>
+                  <Button>
+                    {' '}
+                    <Typography variant="h3">Vibe Tribe </Typography>
+                  </Button>
                 </Link>
                 {'   '}
               </div>
@@ -32,7 +37,11 @@ class NavBar extends Component {
               {authToken && (
                 <div>
                   <Link to="/create">
-                    <Button>submit a vibe</Button>
+                    <Button>
+                      <Typography>
+                        <Add fontSize="large" />
+                      </Typography>
+                    </Button>
                   </Link>{' '}
                 </div>
               )}
