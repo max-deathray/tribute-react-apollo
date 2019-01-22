@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import Vibe from './Vibe';
 import gql from 'graphql-tag';
+import { Fetching } from './Fetching';
 
 export const FEED_QUERY = gql`
   {
@@ -116,7 +117,7 @@ class VibeList extends Component {
     return (
       <Query query={FEED_QUERY}>
         {({ loading, error, data, subscribeToMore }) => {
-          if (loading) return <div>Fetching</div>;
+          if (loading) return <Fetching />;
           if (error) return <div>Error</div>;
 
           this._subscribeToNewVibes(subscribeToMore);
