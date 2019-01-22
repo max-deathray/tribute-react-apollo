@@ -39,28 +39,28 @@ class Vibe extends Component {
         </div>
         <div className="panel">
           <div className="vibe-caption">{this.props.vibe.description}</div>
-          <div className="heart-count">
-            {this.props.vibe.hearts.length} hearts
-          </div>
           {authToken && (
             <div className="locket">
-              <Mutation
-                mutation={HEART_MUTATION}
-                variables={{ vibeId: this.props.vibe.id }}
-                update={(store, { data: { heart } }) =>
-                  this.props.updateStoreAfterHeart(
-                    store,
-                    heart,
-                    this.props.vibe.id
-                  )
-                }
-              >
-                {heartMutation => (
-                  <Button onClick={heartMutation}>
-                    <Favorite />
-                  </Button>
-                )}
-              </Mutation>
+              <div className="heart-count">{this.props.vibe.hearts.length}</div>
+              <div className="heart-icon">
+                <Mutation
+                  mutation={HEART_MUTATION}
+                  variables={{ vibeId: this.props.vibe.id }}
+                  update={(store, { data: { heart } }) =>
+                    this.props.updateStoreAfterHeart(
+                      store,
+                      heart,
+                      this.props.vibe.id
+                    )
+                  }
+                >
+                  {heartMutation => (
+                    <Button onClick={heartMutation}>
+                      <Favorite />
+                    </Button>
+                  )}
+                </Mutation>
+              </div>
             </div>
           )}
         </div>
