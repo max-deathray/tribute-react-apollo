@@ -102,9 +102,9 @@ class CreateVibe extends Component {
               mutation={POST_MUTATION}
               variables={{ description, img }}
               onCompleted={() => this.props.history.push('/')}
-              update={(store, { data: { vibe } }) => {
+              update={(store, { data: { post } }) => {
                 const data = store.readQuery({ query: FEED_QUERY });
-                data.feed.unshift(vibe);
+                data.feed.vibes.unshift(post);
                 store.writeQuery({
                   query: FEED_QUERY,
                   data,
