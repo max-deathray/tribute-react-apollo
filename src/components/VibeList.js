@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 
 export const FEED_QUERY = gql`
   {
-    feed {
+    feed(orderBy: createdAt_DESC) {
       id
       img
       description
