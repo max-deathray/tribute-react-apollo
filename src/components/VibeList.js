@@ -6,9 +6,32 @@ import gql from 'graphql-tag';
 export const FEED_QUERY = gql`
   {
     feed(orderBy: createdAt_DESC) {
+      vibes {
+        id
+        img
+        description
+        postedBy {
+          id
+          name
+        }
+        hearts {
+          id
+          user {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
+
+const NEW_VIBES_SUBSCRIPTION = gql`
+  subscription {
+    newVibe {
       id
-      img
+      url
       description
+      createdAt
       postedBy {
         id
         name
@@ -24,20 +47,47 @@ export const FEED_QUERY = gql`
 `;
 
 class VibeList extends Component {
+  _updateCacheAfterHeart = (store, createHeart, vibeId) => {
+    const data = store.readQuery({ query: FEED_QUERY });
+
+    const heartedVibe = data.feed.vibes.find(vibe => vibe.id === vibeId);
+    heartedVibe.hearts = createHeart.vibe.hearts;
+
+    store.writeQuery({ query: FEED_QUERY, data });
+  };
+
+  _subscribeToNewVibes = subscribeToMore => {
+    subscribeToMore({
+      document: NEW_VIBES_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+        const newVibe = subscriptionData.data.newVibe;
+
+        return Object.assign({}, prev, {
+          feed: {
+            vibes: [newVibe, ...prev.feed.vibes],
+            count: prev.feed.vibes.length + 1,
+            __typename: prev.feed.__typename,
+          },
+        });
+      },
+    });
+  };
+
   render() {
     return (
       <Query query={FEED_QUERY}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, subscribeToMore }) => {
           if (loading) return <div>Fetching</div>;
           if (error) return <div>Error</div>;
 
-          const vibesToRender = data.feed;
+          const vibesToRender = data.feed.vibes;
 
           return (
             <div className="vibe-list">
               {vibesToRender.map((vibe, index) => (
                 <Vibe
-                  // key={vibe.id}
+                  key={vibe.id}
                   vibe={vibe}
                   index={index}
                   updateStoreAfterHeart={this._updateCacheAfterHeart}
@@ -49,15 +99,6 @@ class VibeList extends Component {
       </Query>
     );
   }
-
-  _updateCacheAfterHeart = (store, createHeart, vibeId) => {
-    const data = store.readQuery({ query: FEED_QUERY });
-
-    const heartedLink = data.feed.find(vibe => vibe.id === vibeId);
-    heartedLink.hearts = createHeart.vibe.hearts;
-
-    store.writeQuery({ query: FEED_QUERY, data });
-  };
 }
 
 export default VibeList;
