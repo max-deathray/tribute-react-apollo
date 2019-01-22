@@ -29,9 +29,8 @@ const NEW_VIBES_SUBSCRIPTION = gql`
   subscription {
     newVibe {
       id
-      url
+      img
       description
-      createdAt
       postedBy {
         id
         name
@@ -56,10 +55,16 @@ class VibeList extends Component {
     store.writeQuery({ query: FEED_QUERY, data });
   };
 
+  // calling this will open up a web socket connection to the subscription server
   _subscribeToNewVibes = subscribeToMore => {
     subscribeToMore({
+      // pass 2 args to 'subscribeToMore'
+
       document: NEW_VIBES_SUBSCRIPTION,
+      // udpateQuery - this is acting like a redux reducer!
+
       updateQuery: (prev, { subscriptionData }) => {
+        console.log('subscribe data', subscriptionData);
         if (!subscriptionData.data) return prev;
         const newVibe = subscriptionData.data.newVibe;
 
@@ -81,6 +86,7 @@ class VibeList extends Component {
           if (loading) return <div>Fetching</div>;
           if (error) return <div>Error</div>;
 
+          this._subscribeToNewVibes(subscribeToMore);
           const vibesToRender = data.feed.vibes;
 
           return (

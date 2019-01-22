@@ -104,7 +104,7 @@ class CreateVibe extends Component {
               onCompleted={() => this.props.history.push('/')}
               update={(store, { data: { post } }) => {
                 const data = store.readQuery({ query: FEED_QUERY });
-                data.feed.unshift(post);
+                data.feed.vibes.unshift(post);
                 store.writeQuery({
                   query: FEED_QUERY,
                   data,
