@@ -45,6 +45,33 @@ const NEW_VIBES_SUBSCRIPTION = gql`
   }
 `;
 
+const NEW_HEARTS_SUBSCRIPTION = gql`
+  subscription {
+    newHeart {
+      id
+      vibe {
+        id
+        img
+        description
+        createdAt
+        postedBy {
+          id
+          name
+        }
+        hearts {
+          id
+          user {
+            id
+          }
+        }
+      }
+      user {
+        id
+      }
+    }
+  }
+`;
+
 class VibeList extends Component {
   _updateCacheAfterHeart = (store, createHeart, vibeId) => {
     const data = store.readQuery({ query: FEED_QUERY });
@@ -79,6 +106,12 @@ class VibeList extends Component {
     });
   };
 
+  _subscribeToNewHearts = subscribeToMore => {
+    subscribeToMore({
+      document: NEW_HEARTS_SUBSCRIPTION,
+    });
+  };
+
   render() {
     return (
       <Query query={FEED_QUERY}>
@@ -87,6 +120,8 @@ class VibeList extends Component {
           if (error) return <div>Error</div>;
 
           this._subscribeToNewVibes(subscribeToMore);
+          this._subscribeToNewHearts(subscribeToMore);
+
           const vibesToRender = data.feed.vibes;
 
           return (
