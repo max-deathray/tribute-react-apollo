@@ -1,9 +1,19 @@
-// describe('sample test 101', () => {
-//   console.log('I am running some tests!');
-// });
+describe('sample test 101', () => {
+  it('works as expected', () => {
+    console.log('This console.log works I guess!?!?');
+    const age = 100;
+    expect(1).toEqual(1);
+    expect(age).toEqual(100);
+  });
 
-const sum = require('../sum');
+  it('handles ranges just fine', () => {
+    const age = 200;
+    expect(age).toBeGreaterThan(100);
+  });
 
-test('add 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+  it('makes a list of dog names', () => {
+    const dogs = ['snickers', 'hugo'];
+    expect(dogs).toEqual(dogs);
+    expect(dogs).toContain('snickers');
+  });
 });
